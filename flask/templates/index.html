@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ view_data.title }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html { font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    .drag-active { border-color: rgb(59 130 246); background-color: rgb(239 246 255); }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200">
+  <main class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-xl">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-extrabold tracking-tight text-slate-800">{{ view_data.main_description }}</h1>
+        <p class="mt-2 text-slate-600">{{ view_data.head_description }}</p>
+      </div>
+
+      <!-- Card -->
+      <form class="bg-white/80 backdrop-blur rounded-2xl shadow-xl ring-1 ring-black/5 p-6 md:p-8" action="#" method="POST" enctype="multipart/form-data">
+        <div class="space-y-6">
+          <!-- Single file input (enhanced) -->
+          <label for="file" class="block text-sm font-medium text-slate-700">File</label>
+
+          <div id="dropzone" class="group relative flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-slate-300 p-8 transition-all hover:border-slate-400">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12 text-slate-400 group-hover:text-slate-500">
+              <path fill-rule="evenodd" d="M1.5 9.75A6.75 6.75 0 018.25 3h.75a.75.75 0 010 1.5h-.75A5.25 5.25 0 003 9.75v6A3.75 3.75 0 006.75 19.5h10.5A3.75 3.75 0 0021 15.75v-6A5.25 5.25 0 0015.75 4.5h-.75a.75.75 0 010-1.5h.75A6.75 6.75 0 0122.5 9.75v6a5.25 5.25 0 01-5.25 5.25H6.75A5.25 5.25 0 011.5 15.75v-6zm7.72 1.03a.75.75 0 011.06 0l1.22 1.22V6a.75.75 0 011.5 0v6l1.22-1.22a.75.75 0 111.06 1.06l-2.5 2.5a.75.75 0 01-1.06 0l-2.5-2.5a.75.75 0 010-1.06z" clip-rule="evenodd" />
+            </svg>
+            <div class="text-center">
+              <p class="text-sm text-slate-600"><span class="font-semibold">Drag & drop</span> your file here</p>
+              <p class="text-xs text-slate-500 mt-1">or</p>
+              <label for="file" class="inline-flex mt-3 cursor-pointer items-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition active:scale-[.98] hover:shadow">
+                Browse files
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="ml-2 h-4 w-4">
+                  <path fill-rule="evenodd" d="M12.97 4.47a.75.75 0 010 1.06L6.81 11.7h13.44a.75.75 0 010 1.5H6.81l6.16 6.16a.75.75 0 11-1.06 1.06l-7.5-7.5a.75.75 0 010-1.06l7.5-7.5a.75.75 0 011.06 0z" clip-rule="evenodd" />
+                </svg>
+              </label>
+            </div>
+            <!-- The actual single input element -->
+            <input id="file" name="file" type="file" class="sr-only" />
+          </div>
+
+          <!-- File info (populated via JS) -->
+          <div id="fileInfo" class="hidden rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200">
+            <div class="flex items-center justify-between gap-3">
+              <div class="min-w-0">
+                <p id="fileName" class="truncate text-sm font-medium text-slate-800"></p>
+                <p id="fileSize" class="text-xs text-slate-500"></p>
+              </div>
+              <button type="button" id="clearBtn" class="rounded-lg px-3 py-1.5 text-sm font-medium text-slate-600 ring-1 ring-slate-300 hover:bg-white">Clear</button>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="w-full rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:opacity-95 active:scale-[.99]">Upload</button>
+
+          <!-- Small print -->
+          <p class="text-center text-xs text-slate-500">{{ view_data.file_size_description }}</p>
+        </div>
+      </form>
+
+      <!-- Footer -->
+      <p class="mt-6 text-center text-xs text-slate-500">{{ view_data.detail_footer }}</p>
+    </div>
+  </main>
+
+  <script>
+    const dropzone = document.getElementById('dropzone');
+    const input = document.getElementById('file');
+    const info = document.getElementById('fileInfo');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    const clearBtn = document.getElementById('clearBtn');
+
+    function formatBytes(bytes) {
+      if (bytes === 0) return '0 B';
+      const k = 1024;
+      const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    function showFileDetails(file) {
+      if (!file) return;
+      fileName.textContent = file.name;
+      fileSize.textContent = formatBytes(file.size);
+      info.classList.remove('hidden');
+    }
+
+    // Handle drag & drop
+    ['dragenter', 'dragover'].forEach(evt => {
+      dropzone.addEventListener(evt, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.add('drag-active');
+      });
+    });
+
+    ;['dragleave', 'drop'].forEach(evt => {
+      dropzone.addEventListener(evt, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.remove('drag-active');
+      });
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      if (files && files[0]) {
+        input.files = files;
+        showFileDetails(files[0]);
+      }
+    });
+
+    // Sync when using the browse button
+    input.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      showFileDetails(file);
+    });
+
+    // Clear selection
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      info.classList.add('hidden');
+      fileName.textContent = '';
+      fileSize.textContent = '';
+    });
+  </script>
+</body>
+</html>
