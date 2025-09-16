@@ -8,47 +8,43 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="{{ url_for('static', filename='app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        html {
-            font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-        }
-
-        .drag-active {
-            border-color: rgb(59 130 246);
-            background-color: rgb(239 246 255);
-        }
-    </style>
     <script defer src="{{ url_for('static', filename='app.js') }}"></script>
 </head>
 
 <body class="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200">
 
-    <div id="dbWarning" class="notification-enter-active bg-amber-50 border-b border-amber-200 py-3 px-4">
-        <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-2">
-            <div class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-500 mr-2" viewBox="0 0 20 20"
-                    fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                        clip-rule="evenodd" />
-                </svg>
-                <p class="text-amber-800 text-sm font-medium">No database connection. Files will be temporarily stored
-                    but not persisted.</p>
+    <div class="fixed w-full">
+        <div id="dbWarning" class="notification-enter-active bg-amber-50 border-b border-amber-200 py-3 px-4">
+            <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-2">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-500 mr-2" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    <p class="text-amber-800 text-sm font-medium">No database connection. Files will be temporarily
+                        stored
+                        but not persisted.</p>
+                </div>
+                <button id="closeWarning" class="text-amber-600 hover:text-amber-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
-            <button id="closeWarning" class="text-amber-600 hover:text-amber-800">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
         </div>
     </div>
 
     <main class="min-h-screen flex items-center justify-center p-4">
         <div class="w-full max-w-xl">
             <div class="text-center mb-8">
-                <h1 class="text-3xl font-extrabold tracking-tight text-slate-800">{{ view_data.main_description }}</h1>
+                <h1 class="text-3xl font-extrabold tracking-tight text-slate-800">{{ view_data.main_description }}
+                </h1>
                 <p class="mt-2 text-slate-600">{{ view_data.head_description }}</p>
             </div>
 
@@ -66,7 +62,8 @@
                                 clip-rule="evenodd" />
                         </svg>
                         <div class="text-center">
-                            <p class="text-sm text-slate-600"><span class="font-semibold">Drag & drop</span> your file
+                            <p class="text-sm text-slate-600"><span class="font-semibold">Drag & drop</span> your
+                                file
                                 here</p>
                             <p class="text-xs text-slate-500 mt-1">or</p>
                             <label for="file"
