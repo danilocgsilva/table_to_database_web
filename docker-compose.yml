@@ -1,8 +1,8 @@
 services:
-  table_to_database_web:
+  table_to_database_web_dev:
     build:
       context: .
-    container_name: table_to_database_web
+    container_name: table_to_database_web_dev
     volumes:
       - ./flask:/app
     working_dir: /app
