@@ -62,6 +62,7 @@ function onPageBehaviour() {
 
 function onDbWarnning() {
     closeWarning.addEventListener('click', () => {
+        alert("teste");
         dbWarning.classList.remove('notification-enter-active');
         dbWarning.classList.add('notification-exit-active');
     });
