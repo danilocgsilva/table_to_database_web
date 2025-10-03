@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive File Upload</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="{{ url_for('static', filename='app.css') }}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script defer src="{{ url_for('static', filename='index.js') }}"></script>
+</head>
+
+<body class="h-screen flex flex-col bg-gray-50 text-gray-800">
+
+    {% block content %}
+        <h1>Welcome to the Default Page!</h1>
+        <p>This is the default content from the base template.</p>
+    {% endblock %}
+</body>
+
+</html>
