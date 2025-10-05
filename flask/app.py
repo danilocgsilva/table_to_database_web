@@ -1,6 +1,7 @@
 from flask import render_template, redirect, url_for, request
 from model_view.Index import Index
 from model_view.Registration import Registration
+from model_view.Sidebar import Sidebar
 from flask_app import flask_app
 from repositories.DatabaseRepository import DatabaseRepository
 from db import db
@@ -9,7 +10,11 @@ from models.Database import Database
 @flask_app.route('/', endpoint='index', methods=["GET"])
 def index():
     index_data = Index()
-    return render_template('index.html', view_data=index_data)
+    return render_template(
+        'index.html',
+        view_data=index_data,
+        sidebar=Sidebar()
+    )
 
 @flask_app.route('/upload', endpoint='upload', methods=["POST"])
 def upload():
@@ -18,7 +23,11 @@ def upload():
 @flask_app.route('/registration', endpoint='registration', methods=['GET'])
 def registration():
     registration_data = Registration()
-    return render_template('registration.html', view_data=registration_data)
+    return render_template(
+        'registration.html', 
+        view_data=registration_data, 
+        sidebar=Sidebar()
+    )
 
 @flask_app.route('/registration', endpoint='registration_persists', methods=['POST'])
 def registration_persists():
