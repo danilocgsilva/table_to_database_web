@@ -26,6 +26,7 @@ def registration_persists():
     password = request.form['password']
     host = request.form['host']
     database_name = request.form['database']
+    friendly_name = request.form['database']
     
     database_repository = DatabaseRepository(db.session)
     
@@ -33,7 +34,8 @@ def registration_persists():
         user_name=username,
         password=password,
         host=host,
-        database_name=database_name
+        database_name=database_name,
+        friendly_name=friendly_name
     )
     
     database_repository.create(database)

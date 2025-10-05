@@ -12,6 +12,7 @@ services:
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_HOST=${DATABASE_HOST}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
     ports:
       - "5000:5000"
   table_to_database_database:

@@ -8,8 +8,12 @@ alembic==1.16.5
     # via -r project.in
 blinker==1.9.0
     # via flask
+cffi==2.0.0
+    # via cryptography
 click==8.3.0
     # via flask
+cryptography==46.0.2
+    # via -r project.in
 flask==3.1.2
     # via
     #   -r project.in
@@ -32,6 +36,8 @@ markupsafe==3.0.3
     #   werkzeug
 mysqlclient==2.2.7
     # via -r project.in
+pycparser==2.23
+    # via cffi
 sqlalchemy==2.0.43
     # via
     #   alembic
