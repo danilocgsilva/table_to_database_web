@@ -1,22 +1,21 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import render_template, redirect, url_for
 from model_view.Index import Index
 from model_view.Registration import Registration
+from flask_app import flask_app
 
-app = Flask(__name__)
-
-@app.route('/', endpoint='index', methods=["GET"])
+@flask_app.route('/', endpoint='index', methods=["GET"])
 def index():
     index_data = Index()
     return render_template('index.html', view_data=index_data)
 
-@app.route('/upload', endpoint='upload', methods=["POST"])
+@flask_app.route('/upload', endpoint='upload', methods=["POST"])
 def upload():
     return redirect(url_for('index'))
 
-@app.route('/registration', endpoint='registration', methods=['GET'])
+@flask_app.route('/registration', endpoint='registration', methods=['GET'])
 def registration():
     registration_data = Registration()
     return render_template('registration.html', view_data=registration_data)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    flask_app.run(debug=True)
