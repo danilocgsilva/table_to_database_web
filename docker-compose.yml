@@ -8,13 +8,17 @@ services:
     working_dir: /app
     environment:
       - FLASK_APP=/app/app.py
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_HOST=${DATABASE_HOST}
     ports:
       - "5000:5000"
   table_to_database_database:
     image: 'mysql:latest'
     container_name: table_to_database_database
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_DATABASE_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
     ports:
       - '3316:3306'
 

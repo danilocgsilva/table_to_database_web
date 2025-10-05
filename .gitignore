@@ -4,3 +4,6 @@ flask/model_view/__pycache__/*
 flask/__pycache__/app.cpython-311.pyc
 flask/__pycache__/app.cpython-311.pyc
 .env
+flask/migrations/__pycache__/*
+flask/migrations/versions/__pycache__/*
+flask/models/__pycache__/*

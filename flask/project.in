@@ -1,2 +1,4 @@
 flask
 flask_sqlalchemy
+mysqlclient
+Alembic
