@@ -1,14 +1,10 @@
-from flask import render_template, redirect, url_for, Flask
+from flask import render_template, redirect, url_for, request
 from model_view.Index import Index
 from model_view.Registration import Registration
-from db import connection_string
-from flask_sqlalchemy import SQLAlchemy
-
-flask_app = Flask(__name__)
-
-flask_app.config['SQLALCHEMY_DATABASE_URI'] = connection_string
-flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-db = SQLAlchemy(flask_app)
+from flask_app import flask_app
+from repositories.DatabaseRepository import DatabaseRepository
+from db import db
+from models.Database import Database
 
 @flask_app.route('/', endpoint='index', methods=["GET"])
 def index():
@@ -23,6 +19,26 @@ def upload():
 def registration():
     registration_data = Registration()
     return render_template('registration.html', view_data=registration_data)
+
+@flask_app.route('/registration', endpoint='registration_persists', methods=['POST'])
+def registration_persists():
+    username = request.form['username']
+    password = request.form['password']
+    host = request.form['host']
+    database_name = request.form['database']
+    
+    database_repository = DatabaseRepository(db.session)
+    
+    database = Database(
+        user_name=username,
+        password=password,
+        host=host,
+        database_name=database_name
+    )
+    
+    database_repository.create(database)
+    
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     flask_app.run(debug=True)

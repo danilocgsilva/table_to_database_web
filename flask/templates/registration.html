@@ -11,7 +11,6 @@
     <main class="flex-1 flex items-center justify-center p-4">
 
         <div class="max-w-md w-full bg-white rounded-md shadow-md overflow-hidden">
-            <!-- Header -->
             <div class="bg-gray-800 py-6 px-8">
                 <h1 class="text-xl font-semibold text-white flex items-center">
                     <i class="fas fa-database mr-2 text-gray-300"></i>
@@ -20,9 +19,20 @@
                 <p class="text-gray-300 mt-1 text-sm">Enter your database connection details</p>
             </div>
 
-            <!-- Form -->
-            <form class="p-8 space-y-6">
-                <!-- Username Field -->
+            <form class="p-8 space-y-6" method="POST" action="{{ url_for('registration_persists') }}">
+
+                <div>
+                    <label for="friendly_name" class="block text-sm font-medium text-gray-700 mb-1">
+                        <i class="fas fa-pen text-gray-500 mr-2"></i>Friendly name
+                    </label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <input type="text" id="friendly_name" name="friendly_name"
+                            class="py-2 px-3 block w-full border border-gray-300 rounded-md focus:ring-1 focus:ring-gray-500 focus:border-gray-500 transition"
+                            placeholder="Enter your username" required>
+                    </div>
+                    <div class="text-sm my-1">This text will be displayed in the databases list</div>
+                </div>
+
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700 mb-1">
                         <i class="fas fa-user text-gray-500 mr-2"></i>Username
@@ -34,7 +44,6 @@
                     </div>
                 </div>
 
-                <!-- Password Field -->
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
                         <i class="fas fa-lock text-gray-500 mr-2"></i>Password
@@ -50,7 +59,6 @@
                     </div>
                 </div>
 
-                <!-- Host Field -->
                 <div>
                     <label for="host" class="block text-sm font-medium text-gray-700 mb-1">
                         <i class="fas fa-server text-gray-500 mr-2"></i>Host
@@ -62,7 +70,6 @@
                     </div>
                 </div>
 
-                <!-- Database Name Field -->
                 <div>
                     <label for="database" class="block text-sm font-medium text-gray-700 mb-1">
                         <i class="fas fa-database text-gray-500 mr-2"></i>Database Name
@@ -74,7 +81,6 @@
                     </div>
                 </div>
 
-                <!-- Submit Button -->
                 <div class="pt-2">
                     <button type="submit"
                         class="w-full bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 text-sm rounded-md transition">
@@ -94,7 +100,6 @@
     </main>
 
     <script>
-        // Toggle password visibility
         document.getElementById('togglePassword').addEventListener('click', function () {
             const passwordInput = document.getElementById('password');
             const icon = this.querySelector('i');
@@ -108,27 +113,6 @@
                 icon.classList.remove('fa-eye-slash');
                 icon.classList.add('fa-eye');
             }
-        });
-
-        // Form submission
-        document.querySelector('form').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Get form values
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const host = document.getElementById('host').value;
-            const database = document.getElementById('database').value;
-
-            // In a real application, you would send this data to your backend
-            console.log('Database Configuration:');
-            console.log('Username:', username);
-            console.log('Password:', password);
-            console.log('Host:', host);
-            console.log('Database:', database);
-
-            // Show success message (in a real app, you'd handle this properly)
-            alert('Database configuration saved successfully!');
         });
     </script>
 

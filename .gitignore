@@ -7,3 +7,4 @@ flask/__pycache__/app.cpython-311.pyc
 flask/migrations/__pycache__/*
 flask/migrations/versions/__pycache__/*
 flask/models/__pycache__/*
+flask/repositories/__pycache__/*
